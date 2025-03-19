@@ -1,14 +1,6 @@
-from selenium.webdriver.common.by import By
-import pytest
+error_alert = 'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.'
 
-@pytest.mark.selenium
-def test_incorrect_login(driver):
-    driver.get('https://magento.softwaretestingboard.com/customer/account/login/')
-    email_field = driver.find_element(By.ID, 'email')
-    password_field = driver.find_element(By.ID, 'pass')
-    button = driver.find_element(By.ID, 'send2')
-    error_alert = driver.find_element(By.CSS_SELECTOR, '[data-bind="html: $parent.prepareMessageForHtml(message.text)"]')
-    email_field.send_keys('invalid_email@example.com')
-    password_field.send_keys('wrong_password')
-    button.click()
-    assert error_alert.text == 'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.'
+def test_incorrect_login(login_page):
+    login_page.open_page()
+    login_page.fill_login_form('invalid_email@example.com', 'wrong_password')
+    login_page.check_error_alert(error_alert)
