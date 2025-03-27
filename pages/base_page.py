@@ -1,3 +1,5 @@
+from pages.locators import titles_locators as t_locs
+
 class BasePage:
     base_url = 'https://magento.softwaretestingboard.com'
     page_url = None
@@ -15,3 +17,7 @@ class BasePage:
 
     def find_all(self, locator: tuple):
         return self.driver.find_elements(*locator)
+
+    def check_page_header_title(self, text):
+        header_title = self.find(t_locs.header_title_loc)
+        assert header_title.text == text

@@ -1,13 +1,12 @@
 from selenium import webdriver
 import pytest
-from time import sleep
 from pages.sale_page import SalePage
 from pages.customer_login import CustomerLogin
+from pages.whats_new_page import WhatsNewPage
 
 @pytest.fixture()
 def driver():
     chrome_driver = webdriver.Chrome()
-    sleep(3)
     return chrome_driver
 
 @pytest.fixture()
@@ -17,3 +16,7 @@ def sale_page(driver):
 @pytest.fixture()
 def login_page(driver):
     return CustomerLogin(driver)
+
+@pytest.fixture()
+def whats_new_page(driver):
+    return WhatsNewPage(driver)
